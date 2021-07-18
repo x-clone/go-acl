@@ -1,5 +1,5 @@
 module github.com/x-clone/go-acl
 
-go 1.12
+go 1.16
 
-require golang.org/x/sys v0.0.0-20190529164535-6a60838ec259
+require golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c

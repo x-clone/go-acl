@@ -69,15 +69,9 @@ func GetExplicitAccessMode(name string) (os.FileMode, error) {
 	}
 	defer windows.LocalFree(secDesc)
 
-	ownerName, err := owner.String()
-	if err != nil {
-		return os.FileMode(0), err
-	}
+	ownerName := owner.String()
 
-	groupName, err := group.String()
-	if err != nil {
-		return os.FileMode(0), err
-	}
+	groupName := group.String()
 
 	entries, err := api.GetExplicitEntriesFromAcl(oldAcl)
 	if err != nil {
@@ -90,10 +84,7 @@ func GetExplicitAccessMode(name string) (os.FileMode, error) {
 			if item.AccessMode == api.GRANT_ACCESS && item.Trustee.TrusteeForm == api.TRUSTEE_IS_SID {
 				trustee := (*windows.SID)(unsafe.Pointer(item.Trustee.Name))
 
-				name, err := trustee.String()
-				if err != nil {
-					continue
-				}
+				name := trustee.String()
 
 				switch name {
 				case ownerName:
